@@ -1,0 +1,28 @@
+13884 printf stdio.h
+13595 scanf stdio.h
+378 malloc stdlib.h
+344 index strings.h
+241 pow math.h
+159 getchar stdio.h
+89 abs stdlib.h
+41 exit stdlib.h
+31 free stdlib.h
+22 goto 
+19 calloc stdlib.h
+15 strlen string.h
+12 sqrt math.h
+8 putchar stdio.h
+7 div stdlib.h
+7 puts stdio.h
+5 fmax math.h
+4 gets stdio.h
+4 bool typedef
+4 cs stdlib.h
+3 cos math.h
+2 log math.h
+2 struct 
+1 round math.h
+1 bsearch stdlib.h
+1 ceil math.h
+1 rand stdlib.h
+1 fmin math.h

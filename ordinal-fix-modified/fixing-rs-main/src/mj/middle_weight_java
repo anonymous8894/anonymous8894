@@ -1,0 +1,77 @@
+
+functionBody @ [] [MJSymTab<'b>]
+    : 0 block
+    ;
+
+block [] [MJSymTab<'b>] [] [MJSymtabEntity]
+    : 0 '{' statements '}'
+    ;
+
+statements [] [MJSymTab<'b>] [] [MJSymtabEntity]
+    : 0 
+    | 1 statement statements
+    ;
+
+statement [] [MJSymTab<'b>] [MJDecl<'b>] [MJSymtabEntity] [MJDeclEntity]
+    : 0 ';'
+    | 1 declaration
+    | 2 pExpression ';'
+    | 4 expression '.' fieldName '=' expression ';'
+    | 5 identifier '=' expression ';'
+    | 6 'return' expression ';'
+    | 7 'if' '(' expression '==' expression ')' block 'else' block
+    | 8 block
+    | 9 'return' ';'
+    ;
+
+declaration [] [MJSymTab<'b>] [MJDecl<'b>] [MJSymtabEntity] [MJDeclEntity]
+    : 0 className newIdentifier ';'
+    ;
+
+expression [MJExpressionPriority] [MJSymTab<'b>] [MJClsRef<'b>] [MJSymtabEntity] [MJClassEntity]
+    : 0 identifier
+    | 1 'null'
+    | 2 expression '.' fieldName
+    | 3 '(' className ')' expression
+    | 4 pExpression
+    | 5 '(' expression ')'
+    ;
+
+pExpression [MJExpressionPriority] [MJSymTab<'b>] [MJClsRef<'b>] [MJSymtabEntity] [MJClassEntity]
+    : 0 expression '.' methodName '(' argumentList ')'
+    | 1 'new' className '(' argumentList ')'
+    ;
+
+argumentList [] [MJArgs<'b>] [] [MJSymtabEntity] [MJArgsEntity]
+    : 0
+    | 1 argumentListOther
+    ;
+
+argumentListOther [] [MJArgs<'b>] [] [MJSymtabEntity] [MJArgsEntity]
+    : 0 expression
+    | 1 expression ',' argumentListOther
+    ;
+
+newIdentifier [] [MJIdSelector<'b>] [MJIdSelected<'b>] [MJSymtabEntity] [MJIdentifierEntity]
+    : 0 IDENTIFIER
+    ;
+
+identifier [] [MJIdSelector<'b>] [MJIdSelected<'b>] [MJSymtabEntity] [MJClassEntity]
+    : 0 IDENTIFIER
+    ;
+
+className [] [MJIdSelector<'b>] [MJIdSelected<'b>] [MJSymtabEntity] [MJClassEntity]
+    : 0 IDENTIFIER
+    ;
+
+methodName [] [MJIdSelector<'b>] [MJIdSelected<'b>] [MJSymtabEntity] [MJMethodEntity]
+    : 0 IDENTIFIER
+    ;
+
+fieldName [] [MJIdSelector<'b>] [MJIdSelected<'b>] [MJSymtabEntity] [MJFieldEntity]
+    : 0 IDENTIFIER
+    ;
+
+# IDENTIFIER
+#
+IDENTIFIER [] [MJIdSelector<'b>] [StringRef<'b>] [MJSymtabEntity] [MJIdentifierEntity]

@@ -1,0 +1,2259 @@
+block @ [] [] [] [] []
+    : 0 '{' block_0_1 '}'
+    ;
+
+block_0_1 [] [] [] [] []
+    : 0
+    : 1 blockStatements
+    ;
+
+blockStatements [] [] [] [] []
+    : 0 blockStatements blockStatement
+    : 1 blockStatements blockStatements blockStatement
+    ;
+
+blockStatement [] [] [] [] []
+    : 0 localVariableDeclarationStatement
+    : 1 classDeclaration
+    : 2 statement
+    ;
+
+localVariableDeclarationStatement [] [] [] [] []
+    : 0 localVariableDeclaration ';'
+    ;
+
+localVariableDeclaration [] [] [] [] []
+    : 0 localVariableDeclaration_0_0 unannType variableDeclaratorList
+    ;
+
+localVariableDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 localVariableDeclaration_0_0 variableModifier
+    ;
+
+variableModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'final'
+    ;
+
+annotation [] [] [] [] []
+    : 0 normalAnnotation
+    : 1 markerAnnotation
+    : 2 singleElementAnnotation
+    ;
+
+normalAnnotation [] [] [] [] []
+    : 0 '@' typeName '(' normalAnnotation_0_3 ')'
+    ;
+
+typeName [] [] [] [] []
+    : 0 Identifier
+    : 1 packageOrTypeName '.' Identifier
+    ;
+
+packageOrTypeName [] [] [] [] []
+    : 0 Identifier
+    : 1 packageOrTypeName '.' Identifier
+    ;
+
+normalAnnotation_0_3 [] [] [] [] []
+    : 0
+    : 1 elementValuePairList
+    ;
+
+elementValuePairList [] [] [] [] []
+    : 0 elementValuePair elementValuePairList_0_1
+    ;
+
+elementValuePair [] [] [] [] []
+    : 0 Identifier '=' elementValue
+    ;
+
+elementValue [] [] [] [] []
+    : 0 conditionalExpression
+    : 1 elementValueArrayInitializer
+    : 2 annotation
+    ;
+
+conditionalExpression [] [] [] [] []
+    : 0 conditionalOrExpression
+    : 1 conditionalOrExpression '?' expression ':' conditionalExpression
+    ;
+
+conditionalOrExpression [] [] [] [] []
+    : 0 conditionalAndExpression
+    : 1 conditionalOrExpression '||' conditionalAndExpression
+    ;
+
+conditionalAndExpression [] [] [] [] []
+    : 0 inclusiveOrExpression
+    : 1 conditionalAndExpression '&&' inclusiveOrExpression
+    ;
+
+inclusiveOrExpression [] [] [] [] []
+    : 0 exclusiveOrExpression
+    : 1 inclusiveOrExpression '|' exclusiveOrExpression
+    ;
+
+exclusiveOrExpression [] [] [] [] []
+    : 0 andExpression
+    : 1 exclusiveOrExpression '^' andExpression
+    ;
+
+andExpression [] [] [] [] []
+    : 0 equalityExpression
+    : 1 andExpression '&' equalityExpression
+    ;
+
+equalityExpression [] [] [] [] []
+    : 0 relationalExpression
+    : 1 equalityExpression '==' relationalExpression
+    : 2 equalityExpression '!=' relationalExpression
+    ;
+
+relationalExpression [] [] [] [] []
+    : 0 shiftExpression
+    : 1 relationalExpression '<' shiftExpression
+    : 2 relationalExpression '>' shiftExpression
+    : 3 relationalExpression '<=' shiftExpression
+    : 4 relationalExpression '>=' shiftExpression
+    : 5 relationalExpression 'instanceof' referenceType
+    ;
+
+shiftExpression [] [] [] [] []
+    : 0 additiveExpression
+    : 1 shiftExpression '<' '<' additiveExpression
+    : 2 shiftExpression '>' '>' additiveExpression
+    : 3 shiftExpression '>' '>' '>' additiveExpression
+    ;
+
+additiveExpression [] [] [] [] []
+    : 0 multiplicativeExpression
+    : 1 additiveExpression '+' multiplicativeExpression
+    : 2 additiveExpression '-' multiplicativeExpression
+    ;
+
+multiplicativeExpression [] [] [] [] []
+    : 0 unaryExpression
+    : 1 multiplicativeExpression '*' unaryExpression
+    : 2 multiplicativeExpression '/' unaryExpression
+    : 3 multiplicativeExpression '%' unaryExpression
+    ;
+
+unaryExpression [] [] [] [] []
+    : 0 preIncrementExpression
+    : 1 preDecrementExpression
+    : 2 '+' unaryExpression
+    : 3 '-' unaryExpression
+    : 4 unaryExpressionNotPlusMinus
+    ;
+
+preIncrementExpression [] [] [] [] []
+    : 0 '++' unaryExpression
+    ;
+
+preDecrementExpression [] [] [] [] []
+    : 0 '--' unaryExpression
+    ;
+
+unaryExpressionNotPlusMinus [] [] [] [] []
+    : 0 postfixExpression
+    : 1 '~' unaryExpression
+    : 2 '!' unaryExpression
+    : 3 castExpression
+    ;
+
+postfixExpression [] [] [] [] []
+    : 0 postfixExpression_0_0 postfixExpression_0_1
+    ;
+
+postfixExpression_0_0 [] [] [] [] []
+    : 0 primary
+    : 1 expressionName
+    ;
+
+primary [] [] [] [] []
+    : 0 primary_0_0 primary_0_1
+    ;
+
+primary_0_0 [] [] [] [] []
+    : 0 primaryNoNewArray_lfno_primary
+    : 1 arrayCreationExpression
+    ;
+
+primaryNoNewArray_lfno_primary [] [] [] [] []
+    : 0 literal
+    : 1 typeName primaryNoNewArray_lfno_primary_1_1 '.' 'class'
+    : 2 unannPrimitiveType primaryNoNewArray_lfno_primary_2_1 '.' 'class'
+    : 3 'void' '.' 'class'
+    : 4 'this'
+    : 5 typeName '.' 'this'
+    : 6 '(' expression ')'
+    : 7 classInstanceCreationExpression_lfno_primary
+    : 8 fieldAccess_lfno_primary
+    : 9 arrayAccess_lfno_primary
+    : 10 methodInvocation_lfno_primary
+    : 11 methodReference_lfno_primary
+    ;
+
+literal [] [] [] [] []
+    : 0 IntegerLiteral
+    : 1 FloatingPointLiteral
+    : 2 BooleanLiteral
+    : 3 CharacterLiteral
+    : 4 StringLiteral
+    : 5 NullLiteral
+    ;
+
+primaryNoNewArray_lfno_primary_1_1 [] [] [] [] []
+    : 0
+    : 1 primaryNoNewArray_lfno_primary_1_1 '[' ']'
+    ;
+
+unannPrimitiveType [] [] [] [] []
+    : 0 numericType
+    : 1 'boolean'
+    ;
+
+numericType [] [] [] [] []
+    : 0 integralType
+    : 1 floatingPointType
+    ;
+
+integralType [] [] [] [] []
+    : 0 'byte'
+    : 1 'short'
+    : 2 'int'
+    : 3 'long'
+    : 4 'char'
+    ;
+
+floatingPointType [] [] [] [] []
+    : 0 'float'
+    : 1 'double'
+    ;
+
+primaryNoNewArray_lfno_primary_2_1 [] [] [] [] []
+    : 0
+    : 1 primaryNoNewArray_lfno_primary_2_1 '[' ']'
+    ;
+
+expression [] [] [] [] []
+    : 0 lambdaExpression
+    : 1 assignmentExpression
+    ;
+
+lambdaExpression [] [] [] [] []
+    : 0 lambdaParameters '->' lambdaBody
+    ;
+
+lambdaParameters [] [] [] [] []
+    : 0 Identifier
+    : 1 '(' lambdaParameters_1_1 ')'
+    : 2 '(' inferredFormalParameterList ')'
+    ;
+
+lambdaParameters_1_1 [] [] [] [] []
+    : 0
+    : 1 formalParameterList
+    ;
+
+formalParameterList [] [] [] [] []
+    : 0 receiverParameter
+    : 1 formalParameters ',' lastFormalParameter
+    : 2 lastFormalParameter
+    ;
+
+receiverParameter [] [] [] [] []
+    : 0 receiverParameter_0_0 unannType receiverParameter_0_2 'this'
+    ;
+
+receiverParameter_0_0 [] [] [] [] []
+    : 0
+    : 1 receiverParameter_0_0 annotation
+    ;
+
+unannType [] [] [] [] []
+    : 0 unannPrimitiveType
+    : 1 unannReferenceType
+    ;
+
+unannReferenceType [] [] [] [] []
+    : 0 unannClassOrInterfaceType
+    : 1 unannTypeVariable
+    : 2 unannArrayType
+    ;
+
+unannClassOrInterfaceType [] [] [] [] []
+    : 0 unannClassOrInterfaceType_0_0 unannClassOrInterfaceType_0_1
+    ;
+
+unannClassOrInterfaceType_0_0 [] [] [] [] []
+    : 0 unannClassType_lfno_unannClassOrInterfaceType
+    : 1 unannInterfaceType_lfno_unannClassOrInterfaceType
+    ;
+
+unannClassType_lfno_unannClassOrInterfaceType [] [] [] [] []
+    : 0 Identifier unannClassType_lfno_unannClassOrInterfaceType_0_1
+    ;
+
+unannClassType_lfno_unannClassOrInterfaceType_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+typeArguments [] [] [] [] []
+    : 0 '<' typeArgumentList '>'
+    ;
+
+typeArgumentList [] [] [] [] []
+    : 0 typeArgument typeArgumentList_0_1
+    ;
+
+typeArgument [] [] [] [] []
+    : 0 referenceType
+    : 1 wildcard
+    ;
+
+referenceType [] [] [] [] []
+    : 0 classOrInterfaceType
+    : 1 typeVariable
+    : 2 arrayType
+    ;
+
+classOrInterfaceType [] [] [] [] []
+    : 0 classOrInterfaceType_0_0 classOrInterfaceType_0_1
+    ;
+
+classOrInterfaceType_0_0 [] [] [] [] []
+    : 0 classType_lfno_classOrInterfaceType
+    : 1 interfaceType_lfno_classOrInterfaceType
+    ;
+
+classType_lfno_classOrInterfaceType [] [] [] [] []
+    : 0 classType_lfno_classOrInterfaceType_0_0 Identifier classType_lfno_classOrInterfaceType_0_2
+    ;
+
+classType_lfno_classOrInterfaceType_0_0 [] [] [] [] []
+    : 0
+    : 1 classType_lfno_classOrInterfaceType_0_0 annotation
+    ;
+
+classType_lfno_classOrInterfaceType_0_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+interfaceType_lfno_classOrInterfaceType [] [] [] [] []
+    : 0 classType_lfno_classOrInterfaceType
+    ;
+
+classOrInterfaceType_0_1 [] [] [] [] []
+    : 0
+    : 1 classOrInterfaceType_0_1 classOrInterfaceType_0_1_0_0
+    ;
+
+classOrInterfaceType_0_1_0_0 [] [] [] [] []
+    : 0 classType_lf_classOrInterfaceType
+    : 1 interfaceType_lf_classOrInterfaceType
+    ;
+
+classType_lf_classOrInterfaceType [] [] [] [] []
+    : 0 '.' classType_lf_classOrInterfaceType_0_1 Identifier classType_lf_classOrInterfaceType_0_3
+    ;
+
+classType_lf_classOrInterfaceType_0_1 [] [] [] [] []
+    : 0
+    : 1 classType_lf_classOrInterfaceType_0_1 annotation
+    ;
+
+classType_lf_classOrInterfaceType_0_3 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+interfaceType_lf_classOrInterfaceType [] [] [] [] []
+    : 0 classType_lf_classOrInterfaceType
+    ;
+
+typeVariable [] [] [] [] []
+    : 0 typeVariable_0_0 Identifier
+    ;
+
+typeVariable_0_0 [] [] [] [] []
+    : 0
+    : 1 typeVariable_0_0 annotation
+    ;
+
+arrayType [] [] [] [] []
+    : 0 primitiveType dims
+    : 1 classOrInterfaceType dims
+    : 2 typeVariable dims
+    ;
+
+primitiveType [] [] [] [] []
+    : 0 primitiveType_0_0 numericType
+    : 1 primitiveType_1_0 'boolean'
+    ;
+
+primitiveType_0_0 [] [] [] [] []
+    : 0
+    : 1 primitiveType_0_0 annotation
+    ;
+
+primitiveType_1_0 [] [] [] [] []
+    : 0
+    : 1 primitiveType_1_0 annotation
+    ;
+
+dims [] [] [] [] []
+    : 0 dims_0_0 '[' ']' dims_0_3
+    ;
+
+dims_0_0 [] [] [] [] []
+    : 0
+    : 1 dims_0_0 annotation
+    ;
+
+dims_0_3 [] [] [] [] []
+    : 0
+    : 1 dims_0_3 dims_0_3_0_0 '[' ']'
+    ;
+
+dims_0_3_0_0 [] [] [] [] []
+    : 0
+    : 1 dims_0_3_0_0 annotation
+    ;
+
+wildcard [] [] [] [] []
+    : 0 wildcard_0_0 '?' wildcard_0_2
+    ;
+
+wildcard_0_0 [] [] [] [] []
+    : 0
+    : 1 wildcard_0_0 annotation
+    ;
+
+wildcard_0_2 [] [] [] [] []
+    : 0
+    : 1 wildcardBounds
+    ;
+
+wildcardBounds [] [] [] [] []
+    : 0 'extends' referenceType
+    : 1 'super' referenceType
+    ;
+
+typeArgumentList_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArgumentList_0_1 ',' typeArgument
+    ;
+
+unannInterfaceType_lfno_unannClassOrInterfaceType [] [] [] [] []
+    : 0 unannClassType_lfno_unannClassOrInterfaceType
+    ;
+
+unannClassOrInterfaceType_0_1 [] [] [] [] []
+    : 0
+    : 1 unannClassOrInterfaceType_0_1 unannClassOrInterfaceType_0_1_0_0
+    ;
+
+unannClassOrInterfaceType_0_1_0_0 [] [] [] [] []
+    : 0 unannClassType_lf_unannClassOrInterfaceType
+    : 1 unannInterfaceType_lf_unannClassOrInterfaceType
+    ;
+
+unannClassType_lf_unannClassOrInterfaceType [] [] [] [] []
+    : 0 '.' unannClassType_lf_unannClassOrInterfaceType_0_1 Identifier unannClassType_lf_unannClassOrInterfaceType_0_3
+    ;
+
+unannClassType_lf_unannClassOrInterfaceType_0_1 [] [] [] [] []
+    : 0
+    : 1 unannClassType_lf_unannClassOrInterfaceType_0_1 annotation
+    ;
+
+unannClassType_lf_unannClassOrInterfaceType_0_3 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+unannInterfaceType_lf_unannClassOrInterfaceType [] [] [] [] []
+    : 0 unannClassType_lf_unannClassOrInterfaceType
+    ;
+
+unannTypeVariable [] [] [] [] []
+    : 0 Identifier
+    ;
+
+unannArrayType [] [] [] [] []
+    : 0 unannPrimitiveType dims
+    : 1 unannClassOrInterfaceType dims
+    : 2 unannTypeVariable dims
+    ;
+
+receiverParameter_0_2 [] [] [] [] []
+    : 0
+    : 1 Identifier '.'
+    ;
+
+formalParameters [] [] [] [] []
+    : 0 formalParameter formalParameters_0_1
+    : 1 receiverParameter formalParameters_1_1
+    ;
+
+formalParameter [] [] [] [] []
+    : 0 formalParameter_0_0 unannType variableDeclaratorId
+    ;
+
+formalParameter_0_0 [] [] [] [] []
+    : 0
+    : 1 formalParameter_0_0 variableModifier
+    ;
+
+variableDeclaratorId [] [] [] [] []
+    : 0 Identifier variableDeclaratorId_0_1
+    ;
+
+variableDeclaratorId_0_1 [] [] [] [] []
+    : 0
+    : 1 dims
+    ;
+
+formalParameters_0_1 [] [] [] [] []
+    : 0
+    : 1 formalParameters_0_1 ',' formalParameter
+    ;
+
+formalParameters_1_1 [] [] [] [] []
+    : 0
+    : 1 formalParameters_1_1 ',' formalParameter
+    ;
+
+lastFormalParameter [] [] [] [] []
+    : 0 lastFormalParameter_0_0 unannType lastFormalParameter_0_2 '...' variableDeclaratorId
+    : 1 formalParameter
+    ;
+
+lastFormalParameter_0_0 [] [] [] [] []
+    : 0
+    : 1 lastFormalParameter_0_0 variableModifier
+    ;
+
+lastFormalParameter_0_2 [] [] [] [] []
+    : 0
+    : 1 lastFormalParameter_0_2 annotation
+    ;
+
+inferredFormalParameterList [] [] [] [] []
+    : 0 Identifier inferredFormalParameterList_0_1
+    ;
+
+inferredFormalParameterList_0_1 [] [] [] [] []
+    : 0
+    : 1 inferredFormalParameterList_0_1 ',' Identifier
+    ;
+
+lambdaBody [] [] [] [] []
+    : 0 expression
+    : 1 block
+    ;
+
+assignmentExpression [] [] [] [] []
+    : 0 conditionalExpression
+    : 1 assignment
+    ;
+
+assignment [] [] [] [] []
+    : 0 leftHandSide assignmentOperator expression
+    ;
+
+leftHandSide [] [] [] [] []
+    : 0 expressionName
+    : 1 fieldAccess
+    : 2 arrayAccess
+    ;
+
+expressionName [] [] [] [] []
+    : 0 Identifier
+    : 1 ambiguousName '.' Identifier
+    ;
+
+ambiguousName [] [] [] [] []
+    : 0 Identifier
+    : 1 ambiguousName '.' Identifier
+    ;
+
+fieldAccess [] [] [] [] []
+    : 0 primary '.' Identifier
+    : 1 'super' '.' Identifier
+    : 2 typeName '.' 'super' '.' Identifier
+    ;
+
+arrayAccess [] [] [] [] []
+    : 0 arrayAccess_0_0 arrayAccess_0_1
+    ;
+
+arrayAccess_0_0 [] [] [] [] []
+    : 0 expressionName '[' expression ']'
+    : 1 primaryNoNewArray_lfno_arrayAccess '[' expression ']'
+    ;
+
+primaryNoNewArray_lfno_arrayAccess [] [] [] [] []
+    : 0 literal
+    : 1 typeName primaryNoNewArray_lfno_arrayAccess_1_1 '.' 'class'
+    : 2 'void' '.' 'class'
+    : 3 'this'
+    : 4 typeName '.' 'this'
+    : 5 '(' expression ')'
+    : 6 classInstanceCreationExpression
+    : 7 fieldAccess
+    : 8 methodInvocation
+    : 9 methodReference
+    ;
+
+primaryNoNewArray_lfno_arrayAccess_1_1 [] [] [] [] []
+    : 0
+    : 1 primaryNoNewArray_lfno_arrayAccess_1_1 '[' ']'
+    ;
+
+classInstanceCreationExpression [] [] [] [] []
+    : 0 'new' classInstanceCreationExpression_0_1 classInstanceCreationExpression_0_2 Identifier classInstanceCreationExpression_0_4 classInstanceCreationExpression_0_5 '(' classInstanceCreationExpression_0_7 ')' classInstanceCreationExpression_0_9
+    : 1 expressionName '.' 'new' classInstanceCreationExpression_1_3 classInstanceCreationExpression_1_4 Identifier classInstanceCreationExpression_1_6 '(' classInstanceCreationExpression_1_8 ')' classInstanceCreationExpression_1_10
+    : 2 primary '.' 'new' classInstanceCreationExpression_2_3 classInstanceCreationExpression_2_4 Identifier classInstanceCreationExpression_2_6 '(' classInstanceCreationExpression_2_8 ')' classInstanceCreationExpression_2_10
+    ;
+
+classInstanceCreationExpression_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_0_2 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_0_2 annotation
+    ;
+
+classInstanceCreationExpression_0_4 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_0_4 '.' classInstanceCreationExpression_0_4_0_1 Identifier
+    ;
+
+classInstanceCreationExpression_0_4_0_1 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_0_4_0_1 annotation
+    ;
+
+classInstanceCreationExpression_0_5 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+typeArgumentsOrDiamond [] [] [] [] []
+    : 0 typeArguments
+    : 1 '<' '>'
+    ;
+
+classInstanceCreationExpression_0_7 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+argumentList [] [] [] [] []
+    : 0 expression argumentList_0_1
+    ;
+
+argumentList_0_1 [] [] [] [] []
+    : 0
+    : 1 argumentList_0_1 ',' expression
+    ;
+
+classInstanceCreationExpression_0_9 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+classBody [] [] [] [] []
+    : 0 '{' classBody_0_1 '}'
+    ;
+
+classBody_0_1 [] [] [] [] []
+    : 0
+    : 1 classBody_0_1 classBodyDeclaration
+    ;
+
+classBodyDeclaration [] [] [] [] []
+    : 0 classMemberDeclaration
+    : 1 instanceInitializer
+    : 2 staticInitializer
+    : 3 constructorDeclaration
+    ;
+
+classMemberDeclaration [] [] [] [] []
+    : 0 fieldDeclaration
+    : 1 methodDeclaration
+    : 2 classDeclaration
+    : 3 interfaceDeclaration
+    : 4 ';'
+    ;
+
+fieldDeclaration [] [] [] [] []
+    : 0 fieldDeclaration_0_0 unannType variableDeclaratorList ';'
+    ;
+
+fieldDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 fieldDeclaration_0_0 fieldModifier
+    ;
+
+fieldModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'protected'
+    : 3 'private'
+    : 4 'static'
+    : 5 'final'
+    : 6 'transient'
+    : 7 'volatile'
+    ;
+
+variableDeclaratorList [] [] [] [] []
+    : 0 variableDeclarator variableDeclaratorList_0_1
+    ;
+
+variableDeclarator [] [] [] [] []
+    : 0 variableDeclaratorId variableDeclarator_0_1
+    ;
+
+variableDeclarator_0_1 [] [] [] [] []
+    : 0
+    : 1 '=' variableInitializer
+    ;
+
+variableInitializer [] [] [] [] []
+    : 0 expression
+    : 1 arrayInitializer
+    ;
+
+arrayInitializer [] [] [] [] []
+    : 0 '{' arrayInitializer_0_1 arrayInitializer_0_2 '}'
+    ;
+
+arrayInitializer_0_1 [] [] [] [] []
+    : 0
+    : 1 variableInitializerList
+    ;
+
+variableInitializerList [] [] [] [] []
+    : 0 variableInitializer variableInitializerList_0_1
+    ;
+
+variableInitializerList_0_1 [] [] [] [] []
+    : 0
+    : 1 variableInitializerList_0_1 ',' variableInitializer
+    ;
+
+arrayInitializer_0_2 [] [] [] [] []
+    : 0
+    : 1 ','
+    ;
+
+variableDeclaratorList_0_1 [] [] [] [] []
+    : 0
+    : 1 variableDeclaratorList_0_1 ',' variableDeclarator
+    ;
+
+methodDeclaration [] [] [] [] []
+    : 0 methodDeclaration_0_0 methodHeader methodBody
+    ;
+
+methodDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 methodDeclaration_0_0 methodModifier
+    ;
+
+methodModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'protected'
+    : 3 'private'
+    : 4 'abstract'
+    : 5 'static'
+    : 6 'final'
+    : 7 'synchronized'
+    : 8 'native'
+    : 9 'strictfp'
+    ;
+
+methodHeader [] [] [] [] []
+    : 0 result methodDeclarator methodHeader_0_2
+    : 1 typeParameters methodHeader_1_1 result methodDeclarator methodHeader_1_4
+    ;
+
+result [] [] [] [] []
+    : 0 unannType
+    : 1 'void'
+    ;
+
+methodDeclarator [] [] [] [] []
+    : 0 Identifier '(' methodDeclarator_0_2 ')' methodDeclarator_0_4
+    ;
+
+methodDeclarator_0_2 [] [] [] [] []
+    : 0
+    : 1 formalParameterList
+    ;
+
+methodDeclarator_0_4 [] [] [] [] []
+    : 0
+    : 1 dims
+    ;
+
+methodHeader_0_2 [] [] [] [] []
+    : 0
+    : 1 throws_
+    ;
+
+throws_ [] [] [] [] []
+    : 0 'throws' exceptionTypeList
+    ;
+
+exceptionTypeList [] [] [] [] []
+    : 0 exceptionType exceptionTypeList_0_1
+    ;
+
+exceptionType [] [] [] [] []
+    : 0 classType
+    : 1 typeVariable
+    ;
+
+classType [] [] [] [] []
+    : 0 classType_0_0 Identifier classType_0_2
+    : 1 classOrInterfaceType '.' classType_1_2 Identifier classType_1_4
+    ;
+
+classType_0_0 [] [] [] [] []
+    : 0
+    : 1 classType_0_0 annotation
+    ;
+
+classType_0_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classType_1_2 [] [] [] [] []
+    : 0
+    : 1 classType_1_2 annotation
+    ;
+
+classType_1_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+exceptionTypeList_0_1 [] [] [] [] []
+    : 0
+    : 1 exceptionTypeList_0_1 ',' exceptionType
+    ;
+
+typeParameters [] [] [] [] []
+    : 0 '<' typeParameterList '>'
+    ;
+
+typeParameterList [] [] [] [] []
+    : 0 typeParameter typeParameterList_0_1
+    ;
+
+typeParameter [] [] [] [] []
+    : 0 typeParameter_0_0 Identifier typeParameter_0_2
+    ;
+
+typeParameter_0_0 [] [] [] [] []
+    : 0
+    : 1 typeParameter_0_0 typeParameterModifier
+    ;
+
+typeParameterModifier [] [] [] [] []
+    : 0 annotation
+    ;
+
+typeParameter_0_2 [] [] [] [] []
+    : 0
+    : 1 typeBound
+    ;
+
+typeBound [] [] [] [] []
+    : 0 'extends' typeVariable
+    : 1 'extends' classOrInterfaceType typeBound_1_2
+    ;
+
+typeBound_1_2 [] [] [] [] []
+    : 0
+    : 1 typeBound_1_2 additionalBound
+    ;
+
+additionalBound [] [] [] [] []
+    : 0 '&' interfaceType
+    ;
+
+interfaceType [] [] [] [] []
+    : 0 classType
+    ;
+
+typeParameterList_0_1 [] [] [] [] []
+    : 0
+    : 1 typeParameterList_0_1 ',' typeParameter
+    ;
+
+methodHeader_1_1 [] [] [] [] []
+    : 0
+    : 1 methodHeader_1_1 annotation
+    ;
+
+methodHeader_1_4 [] [] [] [] []
+    : 0
+    : 1 throws_
+    ;
+
+methodBody [] [] [] [] []
+    : 0 block
+    : 1 ';'
+    ;
+
+classDeclaration [] [] [] [] []
+    : 0 normalClassDeclaration
+    : 1 enumDeclaration
+    ;
+
+normalClassDeclaration [] [] [] [] []
+    : 0 normalClassDeclaration_0_0 'class' Identifier normalClassDeclaration_0_3 normalClassDeclaration_0_4 normalClassDeclaration_0_5 classBody
+    ;
+
+normalClassDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 normalClassDeclaration_0_0 classModifier
+    ;
+
+classModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'protected'
+    : 3 'private'
+    : 4 'abstract'
+    : 5 'static'
+    : 6 'final'
+    : 7 'strictfp'
+    ;
+
+normalClassDeclaration_0_3 [] [] [] [] []
+    : 0
+    : 1 typeParameters
+    ;
+
+normalClassDeclaration_0_4 [] [] [] [] []
+    : 0
+    : 1 superclass
+    ;
+
+superclass [] [] [] [] []
+    : 0 'extends' classType
+    ;
+
+normalClassDeclaration_0_5 [] [] [] [] []
+    : 0
+    : 1 superinterfaces
+    ;
+
+superinterfaces [] [] [] [] []
+    : 0 'implements' interfaceTypeList
+    ;
+
+interfaceTypeList [] [] [] [] []
+    : 0 interfaceType interfaceTypeList_0_1
+    ;
+
+interfaceTypeList_0_1 [] [] [] [] []
+    : 0
+    : 1 interfaceTypeList_0_1 ',' interfaceType
+    ;
+
+enumDeclaration [] [] [] [] []
+    : 0 enumDeclaration_0_0 'enum' Identifier enumDeclaration_0_3 enumBody
+    ;
+
+enumDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 enumDeclaration_0_0 classModifier
+    ;
+
+enumDeclaration_0_3 [] [] [] [] []
+    : 0
+    : 1 superinterfaces
+    ;
+
+enumBody [] [] [] [] []
+    : 0 '{' enumBody_0_1 enumBody_0_2 enumBody_0_3 '}'
+    ;
+
+enumBody_0_1 [] [] [] [] []
+    : 0
+    : 1 enumConstantList
+    ;
+
+enumConstantList [] [] [] [] []
+    : 0 enumConstant enumConstantList_0_1
+    ;
+
+enumConstant [] [] [] [] []
+    : 0 enumConstant_0_0 Identifier enumConstant_0_2 enumConstant_0_3
+    ;
+
+enumConstant_0_0 [] [] [] [] []
+    : 0
+    : 1 enumConstant_0_0 enumConstantModifier
+    ;
+
+enumConstantModifier [] [] [] [] []
+    : 0 annotation
+    ;
+
+enumConstant_0_2 [] [] [] [] []
+    : 0
+    : 1 '(' enumConstant_0_2_0_1 ')'
+    ;
+
+enumConstant_0_2_0_1 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+enumConstant_0_3 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+enumConstantList_0_1 [] [] [] [] []
+    : 0
+    : 1 enumConstantList_0_1 ',' enumConstant
+    ;
+
+enumBody_0_2 [] [] [] [] []
+    : 0
+    : 1 ','
+    ;
+
+enumBody_0_3 [] [] [] [] []
+    : 0
+    : 1 enumBodyDeclarations
+    ;
+
+enumBodyDeclarations [] [] [] [] []
+    : 0 ';' enumBodyDeclarations_0_1
+    ;
+
+enumBodyDeclarations_0_1 [] [] [] [] []
+    : 0
+    : 1 enumBodyDeclarations_0_1 classBodyDeclaration
+    ;
+
+interfaceDeclaration [] [] [] [] []
+    : 0 normalInterfaceDeclaration
+    : 1 annotationTypeDeclaration
+    ;
+
+normalInterfaceDeclaration [] [] [] [] []
+    : 0 normalInterfaceDeclaration_0_0 'interface' Identifier normalInterfaceDeclaration_0_3 normalInterfaceDeclaration_0_4 interfaceBody
+    ;
+
+normalInterfaceDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 normalInterfaceDeclaration_0_0 interfaceModifier
+    ;
+
+interfaceModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'protected'
+    : 3 'private'
+    : 4 'abstract'
+    : 5 'static'
+    : 6 'strictfp'
+    ;
+
+normalInterfaceDeclaration_0_3 [] [] [] [] []
+    : 0
+    : 1 typeParameters
+    ;
+
+normalInterfaceDeclaration_0_4 [] [] [] [] []
+    : 0
+    : 1 extendsInterfaces
+    ;
+
+extendsInterfaces [] [] [] [] []
+    : 0 'extends' interfaceTypeList
+    ;
+
+interfaceBody [] [] [] [] []
+    : 0 '{' interfaceBody_0_1 '}'
+    ;
+
+interfaceBody_0_1 [] [] [] [] []
+    : 0
+    : 1 interfaceBody_0_1 interfaceMemberDeclaration
+    ;
+
+interfaceMemberDeclaration [] [] [] [] []
+    : 0 constantDeclaration
+    : 1 interfaceMethodDeclaration
+    : 2 classDeclaration
+    : 3 interfaceDeclaration
+    : 4 ';'
+    ;
+
+constantDeclaration [] [] [] [] []
+    : 0 constantDeclaration_0_0 unannType variableDeclaratorList ';'
+    ;
+
+constantDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 constantDeclaration_0_0 constantModifier
+    ;
+
+constantModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'static'
+    : 3 'final'
+    ;
+
+interfaceMethodDeclaration [] [] [] [] []
+    : 0 interfaceMethodDeclaration_0_0 methodHeader methodBody
+    ;
+
+interfaceMethodDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 interfaceMethodDeclaration_0_0 interfaceMethodModifier
+    ;
+
+interfaceMethodModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'abstract'
+    : 3 'default'
+    : 4 'static'
+    : 5 'strictfp'
+    ;
+
+annotationTypeDeclaration [] [] [] [] []
+    : 0 annotationTypeDeclaration_0_0 '@' 'interface' Identifier annotationTypeBody
+    ;
+
+annotationTypeDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 annotationTypeDeclaration_0_0 interfaceModifier
+    ;
+
+annotationTypeBody [] [] [] [] []
+    : 0 '{' annotationTypeBody_0_1 '}'
+    ;
+
+annotationTypeBody_0_1 [] [] [] [] []
+    : 0
+    : 1 annotationTypeBody_0_1 annotationTypeMemberDeclaration
+    ;
+
+annotationTypeMemberDeclaration [] [] [] [] []
+    : 0 annotationTypeElementDeclaration
+    : 1 constantDeclaration
+    : 2 classDeclaration
+    : 3 interfaceDeclaration
+    : 4 ';'
+    ;
+
+annotationTypeElementDeclaration [] [] [] [] []
+    : 0 annotationTypeElementDeclaration_0_0 unannType Identifier '(' ')' annotationTypeElementDeclaration_0_5 annotationTypeElementDeclaration_0_6 ';'
+    ;
+
+annotationTypeElementDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 annotationTypeElementDeclaration_0_0 annotationTypeElementModifier
+    ;
+
+annotationTypeElementModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'abstract'
+    ;
+
+annotationTypeElementDeclaration_0_5 [] [] [] [] []
+    : 0
+    : 1 dims
+    ;
+
+annotationTypeElementDeclaration_0_6 [] [] [] [] []
+    : 0
+    : 1 defaultValue
+    ;
+
+defaultValue [] [] [] [] []
+    : 0 'default' elementValue
+    ;
+
+instanceInitializer [] [] [] [] []
+    : 0 block
+    ;
+
+staticInitializer [] [] [] [] []
+    : 0 'static' block
+    ;
+
+constructorDeclaration [] [] [] [] []
+    : 0 constructorDeclaration_0_0 constructorDeclarator constructorDeclaration_0_2 constructorBody
+    ;
+
+constructorDeclaration_0_0 [] [] [] [] []
+    : 0
+    : 1 constructorDeclaration_0_0 constructorModifier
+    ;
+
+constructorModifier [] [] [] [] []
+    : 0 annotation
+    : 1 'public'
+    : 2 'protected'
+    : 3 'private'
+    ;
+
+constructorDeclarator [] [] [] [] []
+    : 0 constructorDeclarator_0_0 simpleTypeName '(' constructorDeclarator_0_3 ')'
+    ;
+
+constructorDeclarator_0_0 [] [] [] [] []
+    : 0
+    : 1 typeParameters
+    ;
+
+simpleTypeName [] [] [] [] []
+    : 0 Identifier
+    ;
+
+constructorDeclarator_0_3 [] [] [] [] []
+    : 0
+    : 1 formalParameterList
+    ;
+
+constructorDeclaration_0_2 [] [] [] [] []
+    : 0
+    : 1 throws_
+    ;
+
+constructorBody [] [] [] [] []
+    : 0 '{' constructorBody_0_1 constructorBody_0_2 '}'
+    ;
+
+constructorBody_0_1 [] [] [] [] []
+    : 0
+    : 1 explicitConstructorInvocation
+    ;
+
+explicitConstructorInvocation [] [] [] [] []
+    : 0 explicitConstructorInvocation_0_0 'this' '(' explicitConstructorInvocation_0_3 ')' ';'
+    : 1 explicitConstructorInvocation_1_0 'super' '(' explicitConstructorInvocation_1_3 ')' ';'
+    : 2 expressionName '.' explicitConstructorInvocation_2_2 'super' '(' explicitConstructorInvocation_2_5 ')' ';'
+    : 3 primary '.' explicitConstructorInvocation_3_2 'super' '(' explicitConstructorInvocation_3_5 ')' ';'
+    ;
+
+explicitConstructorInvocation_0_0 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+explicitConstructorInvocation_0_3 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+explicitConstructorInvocation_1_0 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+explicitConstructorInvocation_1_3 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+explicitConstructorInvocation_2_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+explicitConstructorInvocation_2_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+explicitConstructorInvocation_3_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+explicitConstructorInvocation_3_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+constructorBody_0_2 [] [] [] [] []
+    : 0
+    : 1 blockStatements
+    ;
+
+classInstanceCreationExpression_1_3 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_1_4 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_1_4 annotation
+    ;
+
+classInstanceCreationExpression_1_6 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+classInstanceCreationExpression_1_8 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+classInstanceCreationExpression_1_10 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+classInstanceCreationExpression_2_3 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_2_4 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_2_4 annotation
+    ;
+
+classInstanceCreationExpression_2_6 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+classInstanceCreationExpression_2_8 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+classInstanceCreationExpression_2_10 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+methodInvocation [] [] [] [] []
+    : 0 methodName '(' methodInvocation_0_2 ')'
+    : 1 typeName '.' methodInvocation_1_2 Identifier '(' methodInvocation_1_5 ')'
+    : 2 expressionName '.' methodInvocation_2_2 Identifier '(' methodInvocation_2_5 ')'
+    : 3 primary '.' methodInvocation_3_2 Identifier '(' methodInvocation_3_5 ')'
+    : 4 'super' '.' methodInvocation_4_2 Identifier '(' methodInvocation_4_5 ')'
+    : 5 typeName '.' 'super' '.' methodInvocation_5_4 Identifier '(' methodInvocation_5_7 ')'
+    ;
+
+methodName [] [] [] [] []
+    : 0 Identifier
+    ;
+
+methodInvocation_0_2 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_1_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_1_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_2_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_2_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_3_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_3_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_4_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_4_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_5_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_5_7 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodReference [] [] [] [] []
+    : 0 expressionName '::' methodReference_0_2 Identifier
+    : 1 referenceType '::' methodReference_1_2 Identifier
+    : 2 primary '::' methodReference_2_2 Identifier
+    : 3 'super' '::' methodReference_3_2 Identifier
+    : 4 typeName '.' 'super' '::' methodReference_4_4 Identifier
+    : 5 classType '::' methodReference_5_2 'new'
+    : 6 arrayType '::' 'new'
+    ;
+
+methodReference_0_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_1_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_2_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_3_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_4_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_5_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+arrayAccess_0_1 [] [] [] [] []
+    : 0
+    : 1 arrayAccess_0_1 primaryNoNewArray_lf_arrayAccess '[' expression ']'
+    ;
+
+primaryNoNewArray_lf_arrayAccess [] [] [] [] []
+    : 0
+    ;
+
+assignmentOperator [] [] [] [] []
+    : 0 '='
+    : 1 '*='
+    : 2 '/='
+    : 3 '%='
+    : 4 '+='
+    : 5 '-='
+    : 6 '<<='
+    : 7 '>>='
+    : 8 '>>>='
+    : 9 '&='
+    : 10 '^='
+    : 11 '|='
+    ;
+
+classInstanceCreationExpression_lfno_primary [] [] [] [] []
+    : 0 'new' classInstanceCreationExpression_lfno_primary_0_1 classInstanceCreationExpression_lfno_primary_0_2 Identifier classInstanceCreationExpression_lfno_primary_0_4 classInstanceCreationExpression_lfno_primary_0_5 '(' classInstanceCreationExpression_lfno_primary_0_7 ')' classInstanceCreationExpression_lfno_primary_0_9
+    : 1 expressionName '.' 'new' classInstanceCreationExpression_lfno_primary_1_3 classInstanceCreationExpression_lfno_primary_1_4 Identifier classInstanceCreationExpression_lfno_primary_1_6 '(' classInstanceCreationExpression_lfno_primary_1_8 ')' classInstanceCreationExpression_lfno_primary_1_10
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_2 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_lfno_primary_0_2 annotation
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_4 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_lfno_primary_0_4 '.' classInstanceCreationExpression_lfno_primary_0_4_0_1 Identifier
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_4_0_1 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_lfno_primary_0_4_0_1 annotation
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_5 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_7 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+classInstanceCreationExpression_lfno_primary_0_9 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+classInstanceCreationExpression_lfno_primary_1_3 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_lfno_primary_1_4 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_lfno_primary_1_4 annotation
+    ;
+
+classInstanceCreationExpression_lfno_primary_1_6 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+classInstanceCreationExpression_lfno_primary_1_8 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+classInstanceCreationExpression_lfno_primary_1_10 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+fieldAccess_lfno_primary [] [] [] [] []
+    : 0 'super' '.' Identifier
+    : 1 typeName '.' 'super' '.' Identifier
+    ;
+
+arrayAccess_lfno_primary [] [] [] [] []
+    : 0 arrayAccess_lfno_primary_0_0 arrayAccess_lfno_primary_0_1
+    ;
+
+arrayAccess_lfno_primary_0_0 [] [] [] [] []
+    : 0 expressionName '[' expression ']'
+    : 1 primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary '[' expression ']'
+    ;
+
+primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary [] [] [] [] []
+    : 0 literal
+    : 1 typeName primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_1_1 '.' 'class'
+    : 2 unannPrimitiveType primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_2_1 '.' 'class'
+    : 3 'void' '.' 'class'
+    : 4 'this'
+    : 5 typeName '.' 'this'
+    : 6 '(' expression ')'
+    : 7 classInstanceCreationExpression_lfno_primary
+    : 8 fieldAccess_lfno_primary
+    : 9 methodInvocation_lfno_primary
+    : 10 methodReference_lfno_primary
+    ;
+
+primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_1_1 [] [] [] [] []
+    : 0
+    : 1 primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_1_1 '[' ']'
+    ;
+
+primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_2_1 [] [] [] [] []
+    : 0
+    : 1 primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary_2_1 '[' ']'
+    ;
+
+methodInvocation_lfno_primary [] [] [] [] []
+    : 0 methodName '(' methodInvocation_lfno_primary_0_2 ')'
+    : 1 typeName '.' methodInvocation_lfno_primary_1_2 Identifier '(' methodInvocation_lfno_primary_1_5 ')'
+    : 2 expressionName '.' methodInvocation_lfno_primary_2_2 Identifier '(' methodInvocation_lfno_primary_2_5 ')'
+    : 3 'super' '.' methodInvocation_lfno_primary_3_2 Identifier '(' methodInvocation_lfno_primary_3_5 ')'
+    : 4 typeName '.' 'super' '.' methodInvocation_lfno_primary_4_4 Identifier '(' methodInvocation_lfno_primary_4_7 ')'
+    ;
+
+methodInvocation_lfno_primary_0_2 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_lfno_primary_1_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_lfno_primary_1_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_lfno_primary_2_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_lfno_primary_2_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_lfno_primary_3_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_lfno_primary_3_5 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodInvocation_lfno_primary_4_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_lfno_primary_4_7 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodReference_lfno_primary [] [] [] [] []
+    : 0 expressionName '::' methodReference_lfno_primary_0_2 Identifier
+    : 1 referenceType '::' methodReference_lfno_primary_1_2 Identifier
+    : 2 'super' '::' methodReference_lfno_primary_2_2 Identifier
+    : 3 typeName '.' 'super' '::' methodReference_lfno_primary_3_4 Identifier
+    : 4 classType '::' methodReference_lfno_primary_4_2 'new'
+    : 5 arrayType '::' 'new'
+    ;
+
+methodReference_lfno_primary_0_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_lfno_primary_1_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_lfno_primary_2_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_lfno_primary_3_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodReference_lfno_primary_4_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+arrayAccess_lfno_primary_0_1 [] [] [] [] []
+    : 0
+    : 1 arrayAccess_lfno_primary_0_1 primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary '[' expression ']'
+    ;
+
+primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary [] [] [] [] []
+    : 0
+    ;
+
+arrayCreationExpression [] [] [] [] []
+    : 0 'new' primitiveType dimExprs arrayCreationExpression_0_3
+    : 1 'new' classOrInterfaceType dimExprs arrayCreationExpression_1_3
+    : 2 'new' primitiveType dims arrayInitializer
+    : 3 'new' classOrInterfaceType dims arrayInitializer
+    ;
+
+dimExprs [] [] [] [] []
+    : 0 dimExpr dimExprs_0_1
+    ;
+
+dimExpr [] [] [] [] []
+    : 0 dimExpr_0_0 '[' expression ']'
+    ;
+
+dimExpr_0_0 [] [] [] [] []
+    : 0
+    : 1 dimExpr_0_0 annotation
+    ;
+
+dimExprs_0_1 [] [] [] [] []
+    : 0
+    : 1 dimExprs_0_1 dimExpr
+    ;
+
+arrayCreationExpression_0_3 [] [] [] [] []
+    : 0
+    : 1 dims
+    ;
+
+arrayCreationExpression_1_3 [] [] [] [] []
+    : 0
+    : 1 dims
+    ;
+
+primary_0_1 [] [] [] [] []
+    : 0
+    : 1 primary_0_1 primaryNoNewArray_lf_primary
+    ;
+
+primaryNoNewArray_lf_primary [] [] [] [] []
+    : 0 classInstanceCreationExpression_lf_primary
+    : 1 fieldAccess_lf_primary
+    : 2 arrayAccess_lf_primary
+    : 3 methodInvocation_lf_primary
+    : 4 methodReference_lf_primary
+    ;
+
+classInstanceCreationExpression_lf_primary [] [] [] [] []
+    : 0 '.' 'new' classInstanceCreationExpression_lf_primary_0_2 classInstanceCreationExpression_lf_primary_0_3 Identifier classInstanceCreationExpression_lf_primary_0_5 '(' classInstanceCreationExpression_lf_primary_0_7 ')' classInstanceCreationExpression_lf_primary_0_9
+    ;
+
+classInstanceCreationExpression_lf_primary_0_2 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+classInstanceCreationExpression_lf_primary_0_3 [] [] [] [] []
+    : 0
+    : 1 classInstanceCreationExpression_lf_primary_0_3 annotation
+    ;
+
+classInstanceCreationExpression_lf_primary_0_5 [] [] [] [] []
+    : 0
+    : 1 typeArgumentsOrDiamond
+    ;
+
+classInstanceCreationExpression_lf_primary_0_7 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+classInstanceCreationExpression_lf_primary_0_9 [] [] [] [] []
+    : 0
+    : 1 classBody
+    ;
+
+fieldAccess_lf_primary [] [] [] [] []
+    : 0 '.' Identifier
+    ;
+
+arrayAccess_lf_primary [] [] [] [] []
+    : 0 primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary '[' expression ']' arrayAccess_lf_primary_0_4
+    ;
+
+primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary [] [] [] [] []
+    : 0 classInstanceCreationExpression_lf_primary
+    : 1 fieldAccess_lf_primary
+    : 2 methodInvocation_lf_primary
+    : 3 methodReference_lf_primary
+    ;
+
+methodInvocation_lf_primary [] [] [] [] []
+    : 0 '.' methodInvocation_lf_primary_0_1 Identifier '(' methodInvocation_lf_primary_0_4 ')'
+    ;
+
+methodInvocation_lf_primary_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+methodInvocation_lf_primary_0_4 [] [] [] [] []
+    : 0
+    : 1 argumentList
+    ;
+
+methodReference_lf_primary [] [] [] [] []
+    : 0 '::' methodReference_lf_primary_0_1 Identifier
+    ;
+
+methodReference_lf_primary_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+arrayAccess_lf_primary_0_4 [] [] [] [] []
+    : 0
+    : 1 arrayAccess_lf_primary_0_4 primaryNoNewArray_lf_primary_lf_arrayAccess_lf_primary '[' expression ']'
+    ;
+
+primaryNoNewArray_lf_primary_lf_arrayAccess_lf_primary [] [] [] [] []
+    : 0
+    ;
+
+postfixExpression_0_1 [] [] [] [] []
+    : 0
+    : 1 postfixExpression_0_1 postfixExpression_0_1_0_0
+    ;
+
+postfixExpression_0_1_0_0 [] [] [] [] []
+    : 0 postIncrementExpression_lf_postfixExpression
+    : 1 postDecrementExpression_lf_postfixExpression
+    ;
+
+postIncrementExpression_lf_postfixExpression [] [] [] [] []
+    : 0 '++'
+    ;
+
+postDecrementExpression_lf_postfixExpression [] [] [] [] []
+    : 0 '--'
+    ;
+
+castExpression [] [] [] [] []
+    : 0 '(' primitiveType ')' unaryExpression
+    : 1 '(' referenceType castExpression_1_2 ')' unaryExpressionNotPlusMinus
+    : 2 '(' referenceType castExpression_2_2 ')' lambdaExpression
+    ;
+
+castExpression_1_2 [] [] [] [] []
+    : 0
+    : 1 castExpression_1_2 additionalBound
+    ;
+
+castExpression_2_2 [] [] [] [] []
+    : 0
+    : 1 castExpression_2_2 additionalBound
+    ;
+
+elementValueArrayInitializer [] [] [] [] []
+    : 0 '{' elementValueArrayInitializer_0_1 elementValueArrayInitializer_0_2 '}'
+    ;
+
+elementValueArrayInitializer_0_1 [] [] [] [] []
+    : 0
+    : 1 elementValueList
+    ;
+
+elementValueList [] [] [] [] []
+    : 0 elementValue elementValueList_0_1
+    ;
+
+elementValueList_0_1 [] [] [] [] []
+    : 0
+    : 1 elementValueList_0_1 ',' elementValue
+    ;
+
+elementValueArrayInitializer_0_2 [] [] [] [] []
+    : 0
+    : 1 ','
+    ;
+
+elementValuePairList_0_1 [] [] [] [] []
+    : 0
+    : 1 elementValuePairList_0_1 ',' elementValuePair
+    ;
+
+markerAnnotation [] [] [] [] []
+    : 0 '@' typeName
+    ;
+
+singleElementAnnotation [] [] [] [] []
+    : 0 '@' typeName '(' elementValue ')'
+    ;
+
+statement [] [] [] [] []
+    : 0 statementWithoutTrailingSubstatement
+    : 1 labeledStatement
+    : 2 ifThenStatement
+    : 3 ifThenElseStatement
+    : 4 whileStatement
+    : 5 forStatement
+    ;
+
+statementWithoutTrailingSubstatement [] [] [] [] []
+    : 0 block
+    : 1 emptyStatement_
+    : 2 expressionStatement
+    : 3 assertStatement
+    : 4 switchStatement
+    : 5 doStatement
+    : 6 breakStatement
+    : 7 continueStatement
+    : 8 returnStatement
+    : 9 synchronizedStatement
+    : 10 throwStatement
+    : 11 tryStatement
+    ;
+
+emptyStatement_ [] [] [] [] []
+    : 0 ';'
+    ;
+
+expressionStatement [] [] [] [] []
+    : 0 statementExpression ';'
+    ;
+
+statementExpression [] [] [] [] []
+    : 0 assignment
+    : 1 preIncrementExpression
+    : 2 preDecrementExpression
+    : 3 postIncrementExpression
+    : 4 postDecrementExpression
+    : 5 methodInvocation
+    : 6 classInstanceCreationExpression
+    ;
+
+postIncrementExpression [] [] [] [] []
+    : 0 postfixExpression '++'
+    ;
+
+postDecrementExpression [] [] [] [] []
+    : 0 postfixExpression '--'
+    ;
+
+assertStatement [] [] [] [] []
+    : 0 'assert' expression ';'
+    : 1 'assert' expression ':' expression ';'
+    ;
+
+switchStatement [] [] [] [] []
+    : 0 'switch' '(' expression ')' switchBlock
+    ;
+
+switchBlock [] [] [] [] []
+    : 0 '{' switchBlock_0_1 switchBlock_0_2 '}'
+    ;
+
+switchBlock_0_1 [] [] [] [] []
+    : 0
+    : 1 switchBlock_0_1 switchBlockStatementGroup
+    ;
+
+switchBlockStatementGroup [] [] [] [] []
+    : 0 switchLabels blockStatements
+    ;
+
+switchLabels [] [] [] [] []
+    : 0 switchLabel switchLabels_0_1
+    ;
+
+switchLabel [] [] [] [] []
+    : 0 'case' constantExpression ':'
+    : 1 'case' enumConstantName ':'
+    : 2 'default' ':'
+    ;
+
+constantExpression [] [] [] [] []
+    : 0 expression
+    ;
+
+enumConstantName [] [] [] [] []
+    : 0 Identifier
+    ;
+
+switchLabels_0_1 [] [] [] [] []
+    : 0
+    : 1 switchLabels_0_1 switchLabel
+    ;
+
+switchBlock_0_2 [] [] [] [] []
+    : 0
+    : 1 switchBlock_0_2 switchLabel
+    ;
+
+doStatement [] [] [] [] []
+    : 0 'do' statement 'while' '(' expression ')' ';'
+    ;
+
+breakStatement [] [] [] [] []
+    : 0 'break' breakStatement_0_1 ';'
+    ;
+
+breakStatement_0_1 [] [] [] [] []
+    : 0
+    : 1 Identifier
+    ;
+
+continueStatement [] [] [] [] []
+    : 0 'continue' continueStatement_0_1 ';'
+    ;
+
+continueStatement_0_1 [] [] [] [] []
+    : 0
+    : 1 Identifier
+    ;
+
+returnStatement [] [] [] [] []
+    : 0 'return' returnStatement_0_1 ';'
+    ;
+
+returnStatement_0_1 [] [] [] [] []
+    : 0
+    : 1 expression
+    ;
+
+synchronizedStatement [] [] [] [] []
+    : 0 'synchronized' '(' expression ')' block
+    ;
+
+throwStatement [] [] [] [] []
+    : 0 'throw' expression ';'
+    ;
+
+tryStatement [] [] [] [] []
+    : 0 'try' block catches
+    : 1 'try' block tryStatement_1_2 finally_
+    : 2 tryWithResourcesStatement
+    ;
+
+catches [] [] [] [] []
+    : 0 catchClause catches_0_1
+    ;
+
+catchClause [] [] [] [] []
+    : 0 'catch' '(' catchFormalParameter ')' block
+    ;
+
+catchFormalParameter [] [] [] [] []
+    : 0 catchFormalParameter_0_0 catchType variableDeclaratorId
+    ;
+
+catchFormalParameter_0_0 [] [] [] [] []
+    : 0
+    : 1 catchFormalParameter_0_0 variableModifier
+    ;
+
+catchType [] [] [] [] []
+    : 0 unannClassType catchType_0_1
+    ;
+
+unannClassType [] [] [] [] []
+    : 0 Identifier unannClassType_0_1
+    : 1 unannClassOrInterfaceType '.' unannClassType_1_2 Identifier unannClassType_1_4
+    ;
+
+unannClassType_0_1 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+unannClassType_1_2 [] [] [] [] []
+    : 0
+    : 1 unannClassType_1_2 annotation
+    ;
+
+unannClassType_1_4 [] [] [] [] []
+    : 0
+    : 1 typeArguments
+    ;
+
+catchType_0_1 [] [] [] [] []
+    : 0
+    : 1 catchType_0_1 '|' classType
+    ;
+
+catches_0_1 [] [] [] [] []
+    : 0
+    : 1 catches_0_1 catchClause
+    ;
+
+tryStatement_1_2 [] [] [] [] []
+    : 0
+    : 1 catches
+    ;
+
+finally_ [] [] [] [] []
+    : 0 'finally' block
+    ;
+
+tryWithResourcesStatement [] [] [] [] []
+    : 0 'try' resourceSpecification block tryWithResourcesStatement_0_3 tryWithResourcesStatement_0_4
+    ;
+
+resourceSpecification [] [] [] [] []
+    : 0 '(' resourceList resourceSpecification_0_2 ')'
+    ;
+
+resourceList [] [] [] [] []
+    : 0 resource resourceList_0_1
+    ;
+
+resource [] [] [] [] []
+    : 0 resource_0_0 unannType variableDeclaratorId '=' expression
+    ;
+
+resource_0_0 [] [] [] [] []
+    : 0
+    : 1 resource_0_0 variableModifier
+    ;
+
+resourceList_0_1 [] [] [] [] []
+    : 0
+    : 1 resourceList_0_1 ';' resource
+    ;
+
+resourceSpecification_0_2 [] [] [] [] []
+    : 0
+    : 1 ';'
+    ;
+
+tryWithResourcesStatement_0_3 [] [] [] [] []
+    : 0
+    : 1 catches
+    ;
+
+tryWithResourcesStatement_0_4 [] [] [] [] []
+    : 0
+    : 1 finally_
+    ;
+
+labeledStatement [] [] [] [] []
+    : 0 Identifier ':' statement
+    ;
+
+ifThenStatement [] [] [] [] []
+    : 0 'if' '(' expression ')' statement
+    ;
+
+ifThenElseStatement [] [] [] [] []
+    : 0 'if' '(' expression ')' statementNoShortIf 'else' statement
+    ;
+
+statementNoShortIf [] [] [] [] []
+    : 0 statementWithoutTrailingSubstatement
+    : 1 labeledStatementNoShortIf
+    : 2 ifThenElseStatementNoShortIf
+    : 3 whileStatementNoShortIf
+    : 4 forStatementNoShortIf
+    ;
+
+labeledStatementNoShortIf [] [] [] [] []
+    : 0 Identifier ':' statementNoShortIf
+    ;
+
+ifThenElseStatementNoShortIf [] [] [] [] []
+    : 0 'if' '(' expression ')' statementNoShortIf 'else' statementNoShortIf
+    ;
+
+whileStatementNoShortIf [] [] [] [] []
+    : 0 'while' '(' expression ')' statementNoShortIf
+    ;
+
+forStatementNoShortIf [] [] [] [] []
+    : 0 basicForStatementNoShortIf
+    : 1 enhancedForStatementNoShortIf
+    ;
+
+basicForStatementNoShortIf [] [] [] [] []
+    : 0 'for' '(' basicForStatementNoShortIf_0_2 ';' basicForStatementNoShortIf_0_4 ';' basicForStatementNoShortIf_0_6 ')' statementNoShortIf
+    ;
+
+basicForStatementNoShortIf_0_2 [] [] [] [] []
+    : 0
+    : 1 forInit
+    ;
+
+forInit [] [] [] [] []
+    : 0 statementExpressionList
+    : 1 localVariableDeclaration
+    ;
+
+statementExpressionList [] [] [] [] []
+    : 0 statementExpression statementExpressionList_0_1
+    ;
+
+statementExpressionList_0_1 [] [] [] [] []
+    : 0
+    : 1 statementExpressionList_0_1 ',' statementExpression
+    ;
+
+basicForStatementNoShortIf_0_4 [] [] [] [] []
+    : 0
+    : 1 expression
+    ;
+
+basicForStatementNoShortIf_0_6 [] [] [] [] []
+    : 0
+    : 1 forUpdate
+    ;
+
+forUpdate [] [] [] [] []
+    : 0 statementExpressionList
+    ;
+
+enhancedForStatementNoShortIf [] [] [] [] []
+    : 0 'for' '(' enhancedForStatementNoShortIf_0_2 unannType variableDeclaratorId ':' expression ')' statementNoShortIf
+    ;
+
+enhancedForStatementNoShortIf_0_2 [] [] [] [] []
+    : 0
+    : 1 enhancedForStatementNoShortIf_0_2 variableModifier
+    ;
+
+whileStatement [] [] [] [] []
+    : 0 'while' '(' expression ')' statement
+    ;
+
+forStatement [] [] [] [] []
+    : 0 basicForStatement
+    : 1 enhancedForStatement
+    ;
+
+basicForStatement [] [] [] [] []
+    : 0 'for' '(' basicForStatement_0_2 ';' basicForStatement_0_4 ';' basicForStatement_0_6 ')' statement
+    ;
+
+basicForStatement_0_2 [] [] [] [] []
+    : 0
+    : 1 forInit
+    ;
+
+basicForStatement_0_4 [] [] [] [] []
+    : 0
+    : 1 expression
+    ;
+
+basicForStatement_0_6 [] [] [] [] []
+    : 0
+    : 1 forUpdate
+    ;
+
+enhancedForStatement [] [] [] [] []
+    : 0 'for' '(' enhancedForStatement_0_2 unannType variableDeclaratorId ':' expression ')' statement
+    ;
+
+enhancedForStatement_0_2 [] [] [] [] []
+    : 0
+    : 1 enhancedForStatement_0_2 variableModifier
+    ;
+
+#
+#
+Identifier [] [] [] [] []
+BooleanLiteral [] [] [] [] []
+IntegerLiteral [] [] [] [] []
+FloatingPointLiteral [] [] [] [] []
+NullLiteral [] [] [] [] []
+StringLiteral [] [] [] [] []
+CharacterLiteral [] [] [] [] []
